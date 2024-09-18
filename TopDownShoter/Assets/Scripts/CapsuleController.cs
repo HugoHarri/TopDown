@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class CapsuleController : MonoBehaviour
 {
     public Camera mainCamera; // Камера, через которую мы будем смотреть
+    public float rotationSpeed = 5f; // Скорость вращения капсулы
 
     void Update()
     {
         // Получаем позицию курсора в мировых координатах
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = Mathf.Abs(mainCamera.transform.position.z); // Задаем Z-координату для расчета
+        mousePosition.z = -mainCamera.transform.position.z; // Задаем Z-координату для расчета
 
         Vector3 worldMousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
 
@@ -21,16 +21,19 @@ public class CapsuleController : MonoBehaviour
                                          worldMousePosition.z - transform.position.z);
 
         // Проверяем, что направление не нулевое
-        if (direction != Vector3.zero)
+        if (direction.magnitude > 0.1f)
         {
-            // Находим угол поворота вокруг оси Z
+            // Нормализуем направление
+            direction.Normalize();
+
+            // Вычисляем угол вокруг оси Y для поворота в направлении мыши
             float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
-            // Создаем поворот вокруг оси Z
+            // Поворот вокруг оси Y
             Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
 
-            // Плавное вращение
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            // Плавное вращение с использованием Lerp
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 }
