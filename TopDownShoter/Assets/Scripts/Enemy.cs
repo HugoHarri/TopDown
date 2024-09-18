@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 3f; // Скорость движения врага
+    public float speed = 100f; // Скорость движения врага
     public int health = 100; // Здоровье врага
     private Transform player; // Ссылка на игрока
     private NavMeshAgent agent; // Навигационный агент

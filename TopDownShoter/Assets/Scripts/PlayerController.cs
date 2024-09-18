@@ -5,33 +5,29 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;  // Скорость перемещения
-    public float rotationSpeed = 100f;  // Скорость поворота
+    private Rigidbody rb;         // Ссылка на компонент Rigidbody
 
-    private Rigidbody rb;
-
+    // Метод Start вызывается при запуске
     void Start()
     {
+        // Получаем ссылку на компонент Rigidbody
         rb = GetComponent<Rigidbody>();
 
-        // Ограничиваем вращение по X и Z и блокируем движение по оси Y
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
+        // Ограничиваем вращение по X и Z, но не ограничиваем движение по Y
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    void Update()
+    // FixedUpdate вызывается на каждом фиксированном обновлении физики
+    void FixedUpdate()
     {
         // Получаем ввод по оси X (лево-право) и оси Z (вперед-назад)
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        // Перемещение капсулы
+        // Создаем вектор для перемещения
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
 
-        // Поворот капсулы при движении
-        if (movement != Vector3.zero)
-        {
-            Quaternion newRotation = Quaternion.LookRotation(movement);
-            rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, newRotation, rotationSpeed * Time.deltaTime));
-        }
+        // Перемещаем капсулу с использованием физики
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 }
