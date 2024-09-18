@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform target; // Цель, за которой следует камера
-    public float smoothSpeed = 0.125f; // Скорость сглаживания движения камеры
+    public float smoothSpeed = 0.700f; // Скорость сглаживания движения камеры
     public Vector3 offset; // Смещение камеры относительно цели
 
     void LateUpdate()

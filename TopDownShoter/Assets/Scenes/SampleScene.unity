@@ -2290,8 +2290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1319294692}
-  spawnInterval: 5
-  spawnRadius: 40
+  spawnInterval: 3
+  spawnRadius: 50
 --- !u!4 &1598518830
 Transform:
   m_ObjectHideFlags: 0
@@ -2708,13 +2708,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706682958}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!114 &1706682962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3847,7 +3847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a09e1ca8973e149ab1a1b37091e439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 100
+  moveSpeed: 50
   rotationSpeed: 0
 --- !u!136 &1975496029
 CapsuleCollider:
@@ -3892,7 +3892,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 780e64aa21f8e6c45992554825ee0421, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3930,8 +3930,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975496027}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.91, y: 3.44, z: 16.18}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.4400005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3962,7 +3962,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &1975496034
 MonoBehaviour:
@@ -3977,6 +3977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1706682960}
+  rotationSpeed: 35000
 --- !u!1 &2024669922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4372,7 +4373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5528253874079509183, guid: 8fe213609e2ec94449a2c35c92ace628, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.32
+      value: -42.64
       objectReference: {fileID: 0}
     - target: {fileID: 5528253874079509183, guid: 8fe213609e2ec94449a2c35c92ace628, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4425,6 +4426,6 @@ SceneRoots:
   - {fileID: 1706682961}
   - {fileID: 1494972889}
   - {fileID: 2105967477}
-  - {fileID: 1975496032}
   - {fileID: 7051330659445569133}
   - {fileID: 1598518830}
+  - {fileID: 1975496032}
