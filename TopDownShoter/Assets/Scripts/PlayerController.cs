@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;  // Скорость перемещения
-    public float rotationSpeed = 0f;  // Скорость поворота
+    public float rotationSpeed = 100f;  // Скорость поворота
 
     private Rigidbody rb;
 
