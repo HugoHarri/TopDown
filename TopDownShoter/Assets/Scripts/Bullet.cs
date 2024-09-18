@@ -34,4 +34,19 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Получаем компонент Enemy и вызываем TakeDamage
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+                Debug.Log("Damage applied to enemy. Current health: " + enemy.health);
+                Destroy(gameObject); // Удаляем снаряд после попадания
+            }
+        }
+    }
 }
