@@ -6,13 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;  // Скорость полета пули
     public int damage = 20;    // Урон, наносимый пулей
-    public float lifetime = 2f; // Время жизни пули, после которого она исчезает
-
-    private void Start()
-    {
-        // Уничтожить пулю через заданное время
-        Destroy(gameObject, lifetime);
-    }
+   
 
     void Update()
     {
