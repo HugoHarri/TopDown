@@ -9,6 +9,12 @@ public class Enemy : MonoBehaviour
     public int health = 100; // Здоровье врага
     private Transform player; // Ссылка на игрока
     private NavMeshAgent agent; // Навигационный агент
+    public int damage = 20; // Урон, наносимый врагом
+    public float attackRange = 2f; // Дистанция атаки
+    public float attackCooldown = 2f; // Время между атаками
+
+    private PlayerHealth playerHealth; // Ссылка на скрипт здоровья игрока
+    private float lastAttackTime; // Время последней атаки
 
     private void Start()
     {
@@ -19,6 +25,9 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent component is missing.");
         }
+
+        // Находим компонент здоровья игрока
+        playerHealth = player.GetComponent<PlayerHealth>();
     }
 
     private void Update()
@@ -26,6 +35,7 @@ public class Enemy : MonoBehaviour
         if (player != null && agent != null)
         {
             MoveTowardsPlayer(); // Двигаемся к игроку
+            AttackPlayer(); // Проверяем, можем ли атаковать игрока
         }
     }
 
@@ -35,6 +45,22 @@ public class Enemy : MonoBehaviour
         {
             // Устанавливаем точку назначения для врага — позиция игрока
             agent.SetDestination(player.position);
+        }
+    }
+
+    private void AttackPlayer()
+    {
+        // Проверяем расстояние до игрока
+        if (Vector3.Distance(transform.position, player.position) <= attackRange)
+        {
+            // Проверяем, прошло ли достаточно времени с последней атаки
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                // Наносим урон игроку
+                playerHealth.TakeDamage(damage);
+                Debug.Log("Enemy attacked player for " + damage + " damage.");
+                lastAttackTime = Time.time; // Обновляем время последней атаки
+            }
         }
     }
 
@@ -54,5 +80,4 @@ public class Enemy : MonoBehaviour
         // Логика смерти (например, удаление врага)
         Destroy(gameObject);
     }
-
 }

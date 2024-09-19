@@ -5,32 +5,27 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100; // Максимальное здоровье
-    private int currentHealth;   // Текущее здоровье
+    public int health = 100; // Здоровье игрока
+    private GameManager gameManager;
 
-    void Start()
+    private void Start()
     {
-        currentHealth = maxHealth; // Устанавливаем текущее здоровье на максимальное при старте
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage; // Уменьшаем текущее здоровье на полученный урон
-        if (currentHealth <= 0)
+        health -= damage;
+        Debug.Log("Player took damage. Current health: " + health);
+        if (health <= 0)
         {
-            Die(); // Если здоровье ниже или равно 0, вызываем метод смерти
+            Die(); // Умираем, если здоровье <= 0
         }
     }
 
     private void Die()
     {
-        // Логика смерти (например, удалить объект, показать экран Game Over и т.д.)
-        Debug.Log("Player has died.");
-        Destroy(gameObject); // Уничтожаем капсулу (можно заменить на другую логику)
-    }
-
-    public int GetCurrentHealth()
-    {
-        return currentHealth; // Метод для получения текущего здоровья, если нужно
+        Debug.Log("Player died.");
+        gameManager.ReloadScene(); // Перезагружаем сцену при смерти
     }
 }
