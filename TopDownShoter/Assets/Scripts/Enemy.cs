@@ -54,4 +54,5 @@ public class Enemy : MonoBehaviour
         // Логика смерти (например, удаление врага)
         Destroy(gameObject);
     }
+
 }
