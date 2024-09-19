@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 20f;  // Скорость полета пули
+    public float speed = 5f;  // Скорость полета пули
     public int damage = 20;    // Урон, наносимый пулей
    
 
