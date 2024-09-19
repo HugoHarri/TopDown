@@ -1,20 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
     public GameObject bulletPrefab; // Префаб пули
-    public Transform firePoint;     // Точка выстрела (можно прикрепить её к капсуле)
+    public Transform firePoint;     // Точка выстрела
     public float bulletSpeed = 20f; // Скорость полета пули
+
+    private bool isShooting = false; // Флаг для контроля автоматической стрельбы
 
     void Update()
     {
         // Проверяем, нажата ли левая кнопка мыши
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            Shoot();
+            if (!isShooting)
+            {
+                isShooting = true;
+                InvokeRepeating("Shoot", 0f, 0.1f); // Начинаем автоматическую стрельбу
+            }
+        }
+        else
+        {
+            if (isShooting)
+            {
+                isShooting = false;
+                CancelInvoke("Shoot"); // Останавливаем автоматическую стрельбу
+            }
         }
     }
 
