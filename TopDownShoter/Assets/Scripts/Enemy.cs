@@ -5,37 +5,43 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 3f; // Скорость движения врага
-    public int health = 100; // Здоровье врага
-    private Transform player; // Ссылка на игрока
-    private NavMeshAgent agent; // Навигационный агент
-    public int damage = 20; // Урон, наносимый врагом
-    public float attackRange = 2f; // Дистанция атаки
-    public float attackCooldown = 2f; // Время между атаками
+    public float speed = 3f; // РЎРєРѕСЂРѕСЃС‚СЊ РґРІРёР¶РµРЅРёСЏ РІСЂР°РіР°
+    public int health = 100; // Р—РґРѕСЂРѕРІСЊРµ РІСЂР°РіР°
+    private Transform player; // РЎСЃС‹Р»РєР° РЅР° РёРіСЂРѕРєР°
+    private NavMeshAgent agent; // РљРѕРјРїРѕРЅРµРЅС‚ NavMeshAgent
+    public int damage = 20; // РЈСЂРѕРЅ, РЅР°РЅРѕСЃРёРјС‹Р№ РІСЂР°РіРѕРј
+    public float attackRange = 2f; // Р”Р°Р»СЊРЅРѕСЃС‚СЊ Р°С‚Р°РєРё
+    public float attackCooldown = 2f; // Р’СЂРµРјСЏ РїРµСЂРµР·Р°СЂСЏРґРєРё Р°С‚Р°РєРё
 
-    private PlayerHealth playerHealth; // Ссылка на скрипт здоровья игрока
-    private float lastAttackTime; // Время последней атаки
+    private PlayerHealth playerHealth; // РЎСЃС‹Р»РєР° РЅР° СЃРєСЂРёРїС‚ Р·РґРѕСЂРѕРІСЊСЏ РёРіСЂРѕРєР°
+    private float lastAttackTime; // Р’СЂРµРјСЏ РїРѕСЃР»РµРґРЅРµР№ Р°С‚Р°РєРё
+    private Renderer enemyRenderer; // Р РµРЅРґРµСЂРµСЂ РІСЂР°РіР°
+    private Color originalColor; // РСЃС…РѕРґРЅС‹Р№ С†РІРµС‚ РІСЂР°РіР°
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform; // Находим игрока
-        agent = GetComponent<NavMeshAgent>(); // Получаем ссылку на NavMeshAgent
+        player = GameObject.FindGameObjectWithTag("Player").transform; // РќР°Р№С‚Рё РёРіСЂРѕРєР°
+        agent = GetComponent<NavMeshAgent>(); // РџРѕР»СѓС‡РёС‚СЊ РєРѕРјРїРѕРЅРµРЅС‚ NavMeshAgent
+        enemyRenderer = GetComponent<Renderer>(); // РџРѕР»СѓС‡РёС‚СЊ СЂРµРЅРґРµСЂРµСЂ РІСЂР°РіР°
 
         if (agent == null)
         {
             Debug.LogError("NavMeshAgent component is missing.");
         }
 
-        // Находим компонент здоровья игрока
+        // РџРѕР»СѓС‡РёС‚СЊ РєРѕРјРїРѕРЅРµРЅС‚ PlayerHealth Сѓ РёРіСЂРѕРєР°
         playerHealth = player.GetComponent<PlayerHealth>();
+
+        // РЎРѕС…СЂР°РЅРёС‚СЊ РёСЃС…РѕРґРЅС‹Р№ С†РІРµС‚ РІСЂР°РіР°
+        originalColor = enemyRenderer.material.color;
     }
 
     private void Update()
     {
         if (player != null && agent != null)
         {
-            MoveTowardsPlayer(); // Двигаемся к игроку
-            AttackPlayer(); // Проверяем, можем ли атаковать игрока
+            MoveTowardsPlayer(); // РџРµСЂРµРјРµС‰РµРЅРёРµ Рє РёРіСЂРѕРєСѓ
+            AttackPlayer(); // РђС‚Р°РєР° РёРіСЂРѕРєР°, РµСЃР»Рё РІ РїСЂРµРґРµР»Р°С… РґРѕСЃСЏРіР°РµРјРѕСЃС‚Рё
         }
     }
 
@@ -43,23 +49,23 @@ public class Enemy : MonoBehaviour
     {
         if (agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
-            // Устанавливаем точку назначения для врага — позиция игрока
+            // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С†РµР»СЊ РґР»СЏ NavMeshAgent
             agent.SetDestination(player.position);
         }
     }
 
     private void AttackPlayer()
     {
-        // Проверяем расстояние до игрока
+        // РџСЂРѕРІРµСЂРєР° СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РґРѕ РёРіСЂРѕРєР°
         if (Vector3.Distance(transform.position, player.position) <= attackRange)
         {
-            // Проверяем, прошло ли достаточно времени с последней атаки
+            // РџСЂРѕРІРµСЂРєР°, РјРѕР¶РЅРѕ Р»Рё Р°С‚Р°РєРѕРІР°С‚СЊ
             if (Time.time >= lastAttackTime + attackCooldown)
             {
-                // Наносим урон игроку
+                // РќР°РЅРѕСЃРёРј СѓСЂРѕРЅ РёРіСЂРѕРєСѓ
                 playerHealth.TakeDamage(damage);
                 Debug.Log("Enemy attacked player for " + damage + " damage.");
-                lastAttackTime = Time.time; // Обновляем время последней атаки
+                lastAttackTime = Time.time; // РћР±РЅРѕРІР»РµРЅРёРµ РІСЂРµРјРµРЅРё РїРѕСЃР»РµРґРЅРµР№ Р°С‚Р°РєРё
             }
         }
     }
@@ -70,14 +76,29 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy took damage. Current health: " + health);
         if (health <= 0)
         {
-            Die(); // Умираем, если здоровье <= 0
+            Die(); // РЈРјРёСЂР°РµС‚, РµСЃР»Рё Р·РґРѕСЂРѕРІСЊРµ <= 0
         }
+        else
+        {
+            FlashRed(); // РћРєСЂР°С€РёРІР°РµРј РІСЂР°РіР° РІ РєСЂР°СЃРЅС‹Р№ С†РІРµС‚ РїСЂРё РїРѕР»СѓС‡РµРЅРёРё СѓСЂРѕРЅР°
+        }
+    }
+
+    private void FlashRed()
+    {
+        enemyRenderer.material.color = Color.red; // РњРµРЅСЏРµРј С†РІРµС‚ РЅР° РєСЂР°СЃРЅС‹Р№
+        Invoke("ResetColor", 0.2f); // Р’РѕР·РІСЂР°С‰Р°РµРј С†РІРµС‚ С‡РµСЂРµР· 0.2 СЃРµРєСѓРЅРґС‹
+    }
+
+    private void ResetColor()
+    {
+        enemyRenderer.material.color = originalColor; // Р’РѕР·РІСЂР°С‰Р°РµРј РёСЃС…РѕРґРЅС‹Р№ С†РІРµС‚
     }
 
     private void Die()
     {
         Debug.Log("Enemy died.");
-        // Логика смерти (например, удаление врага)
+        // РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ РѕР±СЉРµРєС‚Р°
         Destroy(gameObject);
     }
 }
