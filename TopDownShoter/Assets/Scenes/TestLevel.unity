@@ -3979,7 +3979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 109005547}
-  spawnInterval: 1
+  spawnInterval: 0.5
   spawnRadius: 50
 --- !u!114 &1975496038
 MonoBehaviour:
@@ -4024,6 +4024,10 @@ PrefabInstance:
     - target: {fileID: 3418990192545527449, guid: 8fe213609e2ec94449a2c35c92ace628, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641735805684950761, guid: 8fe213609e2ec94449a2c35c92ace628, type: 3}
+      propertyPath: speed
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6309845790540297686, guid: 8fe213609e2ec94449a2c35c92ace628, type: 3}
       propertyPath: m_LocalPosition.x

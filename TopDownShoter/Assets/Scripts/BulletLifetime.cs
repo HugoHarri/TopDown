@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BulletLifetime : MonoBehaviour
 {
-    public float lifetime = 52f; // Время жизни пули в секундах
+    public float lifetime = 60f; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     void Start()
     {
-        // Запускаем метод DestroyBullet через заданное время
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ DestroyBullet пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         Destroy(gameObject, lifetime);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= damage;
 
-        // Убедитесь, что здоровье не уходит ниже нуля
         if (health < 0)
         {
             health = 0;
@@ -33,6 +33,12 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player died.");
-        gameManager.ReloadScene(); // Перезагрузка сцены
+        LoadMenu(); // Переход к сцене меню
+    }
+
+    private void LoadMenu()
+    {
+        // Загрузка сцены меню
+        SceneManager.LoadScene("Menu"); 
     }
 }
