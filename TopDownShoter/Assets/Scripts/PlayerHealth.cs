@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int health = 100; // Здоровье игрока
+    public int health = 100; // Р—РґРѕСЂРѕРІСЊРµ РёРіСЂРѕРєР°
     private GameManager gameManager;
 
     private void Start()
@@ -16,16 +15,24 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+
+        // РЈР±РµРґРёС‚РµСЃСЊ, С‡С‚Рѕ Р·РґРѕСЂРѕРІСЊРµ РЅРµ СѓС…РѕРґРёС‚ РЅРёР¶Рµ РЅСѓР»СЏ
+        if (health < 0)
+        {
+            health = 0;
+        }
+
         Debug.Log("Player took damage. Current health: " + health);
+
         if (health <= 0)
         {
-            Die(); // Умираем, если здоровье <= 0
+            Die(); // РЈРјРёСЂР°РµС‚, РµСЃР»Рё Р·РґРѕСЂРѕРІСЊРµ <= 0
         }
     }
 
     private void Die()
     {
         Debug.Log("Player died.");
-        gameManager.ReloadScene(); // Перезагружаем сцену при смерти
+        gameManager.ReloadScene(); // РџРµСЂРµР·Р°РіСЂСѓР·РєР° СЃС†РµРЅС‹
     }
 }
